@@ -21,11 +21,13 @@ public class RegistrationController {
 
     private UserRepository userRepository;
     private UserValidator validator;
+    private SiteMap siteMap;
 
     @Inject
-    public RegistrationController(UserRepository userRepository, UserValidator validator) {
+    public RegistrationController(UserRepository userRepository, UserValidator validator, SiteMap siteMap) {
         this.userRepository = userRepository;
         this.validator = validator;
+        this.siteMap = siteMap;
     }
 
     @Post
@@ -40,6 +42,6 @@ public class RegistrationController {
                 return Reply.saying().ok();
             }
         }
-        return Reply.saying().status(400);
+        return Reply.with(siteMap.registrationError()).status(400);
     }
 }

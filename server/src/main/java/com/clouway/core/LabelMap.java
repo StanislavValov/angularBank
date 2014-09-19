@@ -42,6 +42,6 @@ public class LabelMap implements SiteMap {
 
     @Override
     public String registrationError(){
-        return "/bank/RegistrationError.html";
+        return "Registration failed";
     }
 }

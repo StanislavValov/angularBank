@@ -35,17 +35,13 @@ angular.module('bank.registration', [
  * And of course we define a controller for our route.
  */
 
-    .controller('RegistrationController', ['$scope', '$http', '$state', function ($scope, $http, $state) {
+    .controller('RegistrationController', ['$scope', '$http', function ($scope, $http) {
 
         $scope.register = function (username, password) {
 
             $http.post('/registration', {userName: username, password: password}).
                 success(function () {
                     window.location.href = 'index.html';
-                }).
-                error(function () {
-                    $scope.registrationError = 'Registration failed';
-                    $state.go('registration');
                 });
         };
     }]);

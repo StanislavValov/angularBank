@@ -2,11 +2,12 @@ describe('user functionality', function () {
 
     describe('bankService', function () {
 
-        var httpBackend, scope, service;
+        var httpBackend, scope, service, httpProvider;
 
 
         beforeEach(module('bank.user'));
         beforeEach(inject(function ($rootScope, $httpBackend, $injector) {
+            httpProvider = $injector.get('$httpProvider');
             httpBackend = $httpBackend;
             scope = $rootScope.$new();
             service = $injector.get("bankService");
