@@ -9,11 +9,7 @@ angular.module('bank', [
     .config(function myAppConfig($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/home');
         $stateProvider
-            .state("error", {
-                views: {
-                    '': {template: 'Wrong username or password'}
-                }
-            })
+
             .state("user", {
                 url: '/user',
                 views: {
@@ -29,9 +25,6 @@ angular.module('bank', [
                 $http.post('/login', {userName: username, password: password}).
                     success(function () {
                         $state.go('user');
-                    }).
-                    error(function (error) {
-                        $state.go('error');
                     });
             };
         }]);

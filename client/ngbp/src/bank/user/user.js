@@ -4,18 +4,22 @@ angular.module('bank.user', [
     'ui.bootstrap'
 ])
 
-//    .config(function ($httpProvider) {
-//
-//        $httpProvider.interceptors.push(['$rootScope','$q',function ($rootScope,$q) {
-//            return {
-//                responseError: function (rejection) {
-////                    return $q.reject(rejection);
-//                    console.log('Stan');
-//                    $rootScope.transactionError = rejection;
-//                }
-//            };
-//        }]);
-//    })
+    .config(function ($httpProvider) {
+
+        $httpProvider.interceptors.push(['$rootScope', '$timeout', function ($rootScope, $timeout) {
+
+            var clearErrors = function () {
+                $rootScope.error = "";
+            };
+
+            return {
+                responseError: function (rejection) {
+                    $rootScope.error = rejection.data;
+                    $timeout(clearErrors, 2000);
+                }
+            };
+        }]);
+    })
 
     .service('bankService', ['$http', '$q', function ($http, $q) {
         return {
@@ -53,7 +57,7 @@ angular.module('bank.user', [
         };
     }])
 
-    .controller('BankController', ['$scope', 'bankService', '$timeout', function ($scope, bankService, $timeout) {
+    .controller('BankController', ['$scope', 'bankService', '$timeout', function ($scope, bankService) {
 
         bankService.getAmount().then(function (amount) {
             $scope.amount = amount;
@@ -62,26 +66,15 @@ angular.module('bank.user', [
         $scope.deposit = function (transactionAmount) {
 
             bankService.deposit(transactionAmount).then(function (amount) {
-                    $scope.amount = amount;
-                },
-                function (error) {
-                    $scope.transactionError = error;
-                    $timeout(clearErrors(),1000);
-                });
+                $scope.amount = amount;
+            });
         };
 
         $scope.withdraw = function (transactionAmount) {
 
             bankService.withdraw(transactionAmount).then(function (amount) {
-                    $scope.amount = amount;
-                },
-                function (error) {
-                    $scope.transactionError = error;
-                    $timeout(clearErrors, 1000);
-                });
-        };
-        var clearErrors = function () {
-            $scope.transactionError = "";
+                $scope.amount = amount;
+            });
         };
     }])
 
