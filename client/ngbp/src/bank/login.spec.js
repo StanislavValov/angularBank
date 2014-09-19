@@ -14,13 +14,6 @@ describe('login section', function () {
             $controller('LoginController', {$scope: scope, $http: http, $state: state});
         }));
 
-        it('should fail to login', function () {
-            scope.login('Stan', '12');
-            httpBackend.expectPOST('/login').respond(401);
-            httpBackend.flush();
-            expect(state.go).toHaveBeenCalledWith('error');
-        });
-
         it('should login', function () {
             scope.login('Stanislav', '123456');
             httpBackend.expectPOST('/login').respond(200);

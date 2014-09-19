@@ -90,18 +90,5 @@ describe('user functionality', function () {
             expect(service.withdraw).toHaveBeenCalledWith(transactionAmount);
             expect(scope.amount).toEqual(amount.value);
         });
-
-//        it('should assign error message to transactionError scope when try to deposit incorrect value', function () {
-//            var message = 'error';
-//            var transactionAmount = 100;
-//
-//            scope.deposit(transactionAmount);
-//
-//            scope.$digest();
-//
-//            expect(service.deposit).toHaveBeenCalledWith(transactionAmount);
-//            expect(scope.transactionError).toEqual(message);
-//        });
-
     });
 });

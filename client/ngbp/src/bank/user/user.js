@@ -36,9 +36,6 @@ angular.module('bank.user', [
                 $http.post('/bankController/d/money', {transactionAmount: transactionAmount})
                     .success(function (amount) {
                         defer.resolve(amount);
-                    })
-                    .error(function (error) {
-                        defer.reject(error);
                     });
                 return defer.promise;
             },
@@ -48,9 +45,6 @@ angular.module('bank.user', [
                 $http.post('/bankController/w/money', {transactionAmount: transactionAmount})
                     .success(function (amount) {
                         defer.resolve(amount);
-                    })
-                    .error(function (error) {
-                        defer.reject(error);
                     });
                 return defer.promise;
             }
